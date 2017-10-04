@@ -98,3 +98,83 @@ bool RemoveFromLastList(Node **Root, unsigned int *Location) {
 	free(CurrentNodePointer);
 	return true;
 }
+
+
+bool FindDuplicateFromList(Node **Root, unsigned int *Location) {
+	Node *CurrentNodePointer;
+	Node *NextNodePointer;
+	CurrentNodePointer = *Root;
+	while (CurrentNodePointer) {
+		NextNodePointer = CurrentNodePointer->Next;
+		while (NextNodePointer) {
+			if (CurrentNodePointer->Value == NextNodePointer->Value) {
+				*Location = CurrentNodePointer->Value;
+				return true;
+			}
+			NextNodePointer = NextNodePointer->Next;
+		}
+		CurrentNodePointer = CurrentNodePointer->Next;
+	}
+	return false;
+}
+
+bool FindDuplicateFromListMaxNum(Node **Root, unsigned int *Location, unsigned int MaxNum) {
+	Node *CurrentNodePointer;
+	char *CountArray;
+	char DupFlag = 0;
+	CurrentNodePointer = *Root;
+	CountArray = (char *)calloc(MaxNum,sizeof(char));
+	if (CountArray == NULL) {
+		printf("Exception! Out of Memory \n");
+		return false;
+	}
+	while (CurrentNodePointer) {
+		CountArray[CurrentNodePointer->Value]++;
+		if (CountArray[CurrentNodePointer->Value] > 1) {
+			*Location = CurrentNodePointer->Value;
+			DupFlag = 1;
+			break;
+		}
+		CurrentNodePointer = CurrentNodePointer->Next;
+	}
+	free(CountArray);
+	if (DupFlag == 1) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+unsigned int* FindAllDuplicatesFromList(Node **Root, unsigned int *Count) {
+	Node *CurrentNodePointer;
+	Node *NextNodePointer;
+	unsigned int *ResultArray;
+	unsigned int ArrayIndex = 0;
+	unsigned int ArraySize = 1;
+	char DupFlag = 0;
+
+	ResultArray = (unsigned int *)malloc(sizeof(unsigned int)*ArraySize);
+	CurrentNodePointer = *Root;
+	while (CurrentNodePointer) {
+		NextNodePointer = CurrentNodePointer->Next;
+		while (NextNodePointer) {
+			if (CurrentNodePointer->Value == NextNodePointer->Value) {
+				ResultArray = realloc(ResultArray, sizeof(unsigned int)*ArraySize);
+				ResultArray[ArrayIndex] = CurrentNodePointer->Value;
+				*Count += 1;
+				ArrayIndex++;
+				ArraySize++;
+				DupFlag = 1;
+			}
+			NextNodePointer = NextNodePointer->Next;
+		}
+		CurrentNodePointer = CurrentNodePointer->Next;
+	}
+	if (DupFlag == 0) {
+		return NULL;
+	}
+	else {
+		return ResultArray;
+	}
+}

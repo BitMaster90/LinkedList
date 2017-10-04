@@ -14,5 +14,7 @@ void PrintList(Node **);
 bool RemoveFromList(Node **, unsigned int);
 bool AddToFrontList(Node **, unsigned int);
 bool RemoveFromLastList(Node **, unsigned int *);
-
+bool FindDuplicateFromList(Node **, unsigned int *);
+bool FindDuplicateFromListMaxNum(Node **, unsigned int *, unsigned int);
+unsigned int* FindAllDuplicatesFromList(Node **, unsigned int *);
 #endif
