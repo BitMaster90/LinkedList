@@ -46,7 +46,7 @@ int main(void) {
 	AddToList(&Root, 1);
 	printf("New List is : \n");
 	PrintList(&Root);
-	if (FindDuplicateFromListMaxNum(&Root, &TempLocation,9) == true) {
+	if (FindDuplicateFromListMaxNum(&Root, &TempLocation, 9) == true) {
 		printf("Duplicate Found. Value is %u \n", TempLocation);
 		RemoveFromList(&Root, TempLocation);
 		PrintList(&Root);
@@ -61,7 +61,7 @@ int main(void) {
 	printf("New List is : \n");
 	PrintList(&Root);
 	DuplicatesArray = FindAllDuplicatesFromList(&Root, &Count);
-	if ( DuplicatesArray == NULL) {
+	if (DuplicatesArray == NULL) {
 		printf("No Duplicates Found \n");
 	}
 	else {
@@ -71,5 +71,18 @@ int main(void) {
 		}
 		PrintList(&Root);
 	}
+	for (i = 0; i < 10; i++) {
+		RemoveFromLastList(&Root, &TempLocation);
+	}
+	AddToList(&Root, 5);
+	AddToList(&Root, 4);
+	AddToList(&Root, 2);
+	AddToList(&Root, 1);
+	AddToList(&Root, 3);
+	printf("Before Sorting the List is \n");
+	PrintList(&Root);
+	SortList(&Root);
+	printf("After sorting the list is \n");
+	PrintList(&Root);
 	return 0;
 }

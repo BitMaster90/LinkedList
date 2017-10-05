@@ -3,7 +3,7 @@
 #include"Node.h"
 
 bool AddToList(Node **Root, unsigned int Value) {
-	Node *CurrentNodePointer; 
+	Node *CurrentNodePointer;
 	if ((*Root) == NULL) {
 		*Root = (Node *)malloc(sizeof(Node));
 		if ((*Root) == NULL) {
@@ -123,7 +123,7 @@ bool FindDuplicateFromListMaxNum(Node **Root, unsigned int *Location, unsigned i
 	char *CountArray;
 	char DupFlag = 0;
 	CurrentNodePointer = *Root;
-	CountArray = (char *)calloc(MaxNum,sizeof(char));
+	CountArray = (char *)calloc(MaxNum, sizeof(char));
 	if (CountArray == NULL) {
 		printf("Exception! Out of Memory \n");
 		return false;
@@ -157,7 +157,7 @@ unsigned int* FindAllDuplicatesFromList(Node **Root, unsigned int *Count) {
 	ResultArray = (unsigned int *)malloc(sizeof(unsigned int)*ArraySize);
 	CurrentNodePointer = *Root;
 	while (CurrentNodePointer) {
-		NextNodePointer = CurrentNodePointer->Next;
+   		NextNodePointer = CurrentNodePointer->Next;
 		while (NextNodePointer) {
 			if (CurrentNodePointer->Value == NextNodePointer->Value) {
 				ResultArray = realloc(ResultArray, sizeof(unsigned int)*ArraySize);
@@ -178,3 +178,75 @@ unsigned int* FindAllDuplicatesFromList(Node **Root, unsigned int *Count) {
 		return ResultArray;
 	}
 }
+
+void SortList(Node **Root) {
+	Node *CurrentNodePointer;
+	Node *PreviousNodePointer;
+	Node *NextNodePointer;
+	Node *TempNodePointer;
+	Node *MinNodePointer;
+	Node *PrevMinNodePointer;
+	Node *PrevCurrentNodePointer;
+
+	unsigned char MinFlag = 0;
+	if (*Root == NULL) {
+		return;
+	}
+	CurrentNodePointer = *Root;
+	PreviousNodePointer = *Root;
+	NextNodePointer = *Root;
+	MinNodePointer = *Root;
+	PrevMinNodePointer = *Root;
+	PrevCurrentNodePointer = *Root;
+
+	while (CurrentNodePointer->Next != NULL) {
+		MinNodePointer = CurrentNodePointer;
+		NextNodePointer = CurrentNodePointer;
+		while (NextNodePointer) {
+			if (NextNodePointer->Value < MinNodePointer->Value) {
+				MinNodePointer = NextNodePointer;
+				MinFlag = 1;
+			}
+			NextNodePointer = NextNodePointer->Next;
+		}
+		if (MinFlag == 1) {
+			MinFlag = 0;
+			PrevMinNodePointer = CurrentNodePointer;
+			while (PrevMinNodePointer->Next != MinNodePointer) {
+				PrevMinNodePointer = PrevMinNodePointer->Next;
+			}
+			if (CurrentNodePointer == *Root) {
+				TempNodePointer = MinNodePointer->Next;
+				MinNodePointer->Next = CurrentNodePointer;
+				PrevMinNodePointer->Next = TempNodePointer;
+				*Root = MinNodePointer;
+				PrevCurrentNodePointer = MinNodePointer;
+			}
+			else {
+				TempNodePointer = MinNodePointer->Next;
+				MinNodePointer->Next = CurrentNodePointer;
+				PrevMinNodePointer->Next = TempNodePointer;
+				PrevCurrentNodePointer->Next = MinNodePointer;
+				PrevCurrentNodePointer = MinNodePointer;
+			}
+		}
+		else {
+			PrevCurrentNodePointer = CurrentNodePointer;
+			CurrentNodePointer = CurrentNodePointer->Next;
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
