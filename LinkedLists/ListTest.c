@@ -6,7 +6,7 @@ int main(void) {
 	Node *Root = NULL;
 	unsigned int i;
 	unsigned int TempLocation;
-	volatile unsigned int Count = 0;
+    unsigned int Count = 0;
 	unsigned int *DuplicatesArray;
 
 	for (i = 0; i < ListSize; i++) {
@@ -83,6 +83,20 @@ int main(void) {
 	PrintList(&Root);
 	SortList(&Root);
 	printf("After sorting the list is \n");
+	PrintList(&Root);
+	for (i = 0; i < 5; i++) {
+		RemoveFromLastList(&Root, &TempLocation);
+	}
+	AddToList(&Root, 5);
+	AddToList(&Root, 4);
+	AddToList(&Root, 3);
+	AddToList(&Root, 1);
+	AddToList(&Root, 2);
+	AddToList(&Root, 7);
+	printf("Before swapping, the list is : \n");
+	PrintList(&Root);
+	SwapNodesInList(&Root, 2, 7);
+	printf("After swapping, the list is : \n");
 	PrintList(&Root);
 	return 0;
 }

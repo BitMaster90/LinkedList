@@ -215,7 +215,7 @@ void SortList(Node **Root) {
 			while (PrevMinNodePointer->Next != MinNodePointer) {
 				PrevMinNodePointer = PrevMinNodePointer->Next;
 			}
-			if (CurrentNodePointer == *Root) {
+ 			if (CurrentNodePointer == *Root) {
 				TempNodePointer = MinNodePointer->Next;
 				MinNodePointer->Next = CurrentNodePointer;
 				PrevMinNodePointer->Next = TempNodePointer;
@@ -238,7 +238,126 @@ void SortList(Node **Root) {
 
 }
 
+void SwapNodesInList(Node **Root, unsigned int FirstNodeValue, unsigned int SecondNodeValue) {
+	Node *PreviousFirstNode;
+	Node *NextFirstNode;
+	Node *PreviousSecondNode;
+	Node *NextSecondNode;
+	Node *CurrentNode;
+	Node *FirstNode;
+	Node *SecondNode;
+	char NodeFoundFlag = 0;
 
+	if ((*Root == NULL) || ((*Root)->Next == NULL)) {
+		return;
+	}
+	PreviousFirstNode = *Root;
+	NextFirstNode = *Root;
+	PreviousSecondNode = *Root;
+	NextSecondNode = *Root;
+	CurrentNode = *Root;
+	FirstNode = NULL;
+	SecondNode = NULL;
+
+	while (CurrentNode != NULL) {
+		if (CurrentNode->Value == FirstNodeValue) {
+			FirstNode = CurrentNode;
+			NextFirstNode = CurrentNode->Next;
+			NodeFoundFlag = 1;
+			break;
+		}
+		PreviousFirstNode = CurrentNode;
+		CurrentNode = CurrentNode->Next;
+	}
+	if (NodeFoundFlag == 0) {
+		return;
+	}
+
+	NodeFoundFlag = 0;
+	CurrentNode = *Root;
+
+	while (CurrentNode != NULL) {
+		if (CurrentNode->Value == SecondNodeValue) {
+			SecondNode = CurrentNode;
+			NextSecondNode = CurrentNode->Next;
+			NodeFoundFlag = 1;
+			break;
+		}
+		PreviousSecondNode = CurrentNode;
+		CurrentNode = CurrentNode->Next;
+	}
+	if (NodeFoundFlag == 0) {
+		return;
+	}
+
+	//
+	//Check if you are swapping adjacent elements. Also check ordering of First and Second Node.
+	//
+
+	if (NextFirstNode == SecondNode) {
+
+		//
+		// Check the case if Root Node is not involved
+		//
+		if (PreviousFirstNode != FirstNode) {
+			PreviousFirstNode->Next = SecondNode;
+			SecondNode->Next = FirstNode;
+			FirstNode->Next = NextSecondNode;
+		}
+		else {
+			*Root = SecondNode;
+			SecondNode->Next = FirstNode;
+			FirstNode->Next = NextSecondNode;
+		}
+	}
+	else if (FirstNode == NextSecondNode) {
+		  
+		//
+		// This means Second Node exists before first Node.
+		//
+
+		//
+		// Check the case if Root Node is not involved
+		//
+
+		if (SecondNode != PreviousSecondNode) {
+			PreviousSecondNode = FirstNode;
+			FirstNode->Next = SecondNode;
+			SecondNode->Next = NextFirstNode;
+		}
+		else {
+			*Root = FirstNode;
+			FirstNode->Next = SecondNode;
+			SecondNode->Next = NextFirstNode;
+		}
+	}
+	else {
+
+		//
+		// Check if First Node is the root and then check if second node is the root.
+		//
+
+		if (PreviousFirstNode == FirstNode) {
+			PreviousSecondNode->Next = FirstNode;
+			FirstNode->Next = NextSecondNode;
+			*Root = SecondNode;
+			SecondNode->Next = NextFirstNode;
+		}
+		else if (PreviousSecondNode == SecondNode) {
+			PreviousFirstNode->Next = SecondNode;
+			SecondNode->Next = NextFirstNode;
+			*Root = FirstNode;
+			FirstNode->Next = NextSecondNode;
+		}
+		else {
+			PreviousSecondNode->Next = FirstNode;
+			FirstNode->Next = NextSecondNode;
+			PreviousFirstNode->Next = SecondNode;
+			SecondNode->Next = NextFirstNode;
+		}
+	}
+	return;
+}
 
 
 
