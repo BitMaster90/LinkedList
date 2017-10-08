@@ -321,7 +321,7 @@ void SwapNodesInList(Node **Root, unsigned int FirstNodeValue, unsigned int Seco
 		//
 
 		if (SecondNode != PreviousSecondNode) {
-			PreviousSecondNode = FirstNode;
+			PreviousSecondNode->Next = FirstNode;
 			FirstNode->Next = SecondNode;
 			SecondNode->Next = NextFirstNode;
 		}

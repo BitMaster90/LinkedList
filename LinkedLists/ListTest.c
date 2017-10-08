@@ -95,7 +95,7 @@ int main(void) {
 	AddToList(&Root, 7);
 	printf("Before swapping, the list is : \n");
 	PrintList(&Root);
-	SwapNodesInList(&Root, 2, 7);
+	SwapNodesInList(&Root, 3, 4);
 	printf("After swapping, the list is : \n");
 	PrintList(&Root);
 	return 0;
