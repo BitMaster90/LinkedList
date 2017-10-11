@@ -19,4 +19,5 @@ bool FindDuplicateFromListMaxNum(Node **, unsigned int *, unsigned int);
 unsigned int* FindAllDuplicatesFromList(Node **, unsigned int *);
 void SortList(Node **);
 void SwapNodesInList(Node **, unsigned int, unsigned int);
+void SwapNodesInListOpt(Node **, unsigned int, unsigned int);
 #endif

@@ -238,6 +238,72 @@ void SortList(Node **Root) {
 
 }
 
+void SwapNodesInListOpt(Node **Root, unsigned int FirstNodeValue, unsigned int SecondNodeValue) {
+	Node *PreviousFirstNode;
+	Node *PreviousSecondNode;
+	Node *CurrentNode;
+	Node *FirstNode;
+	Node *SecondNode;
+	char NodeFoundFlag = 0;
+
+	if ((*Root == NULL) || ((*Root)->Next == NULL)) {
+		return;
+	}
+	PreviousFirstNode = *Root;
+	PreviousSecondNode = *Root;
+	CurrentNode = *Root;
+	FirstNode = NULL;
+	SecondNode = NULL;
+
+	while (CurrentNode != NULL) {
+		if (CurrentNode->Value == FirstNodeValue) {
+			FirstNode = CurrentNode;
+			NodeFoundFlag = 1;
+			break;
+		}
+		PreviousFirstNode = CurrentNode;
+		CurrentNode = CurrentNode->Next;
+	}
+	if (NodeFoundFlag == 0) {
+		return;
+	}
+
+	NodeFoundFlag = 0;
+	CurrentNode = *Root;
+
+	while (CurrentNode != NULL) {
+		if (CurrentNode->Value == SecondNodeValue) {
+			SecondNode = CurrentNode;
+			NodeFoundFlag = 1;
+			break;
+		}
+		PreviousSecondNode = CurrentNode;
+		CurrentNode = CurrentNode->Next;
+	}
+	if (NodeFoundFlag == 0) {
+		return;
+	}
+	if (FirstNode == SecondNode) {
+		return;
+	}
+	if (FirstNode != PreviousFirstNode) {
+		PreviousFirstNode->Next = SecondNode;
+	}
+	else {
+		*Root = SecondNode;
+	}
+	if (SecondNode != PreviousSecondNode) {
+		PreviousSecondNode->Next = FirstNode;
+	}
+	else {
+		*Root = FirstNode;
+	}
+	CurrentNode = FirstNode->Next;
+	FirstNode->Next = SecondNode->Next;
+	SecondNode->Next = CurrentNode;
+}
+
+
 void SwapNodesInList(Node **Root, unsigned int FirstNodeValue, unsigned int SecondNodeValue) {
 	Node *PreviousFirstNode;
 	Node *NextFirstNode;
