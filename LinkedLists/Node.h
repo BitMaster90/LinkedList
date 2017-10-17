@@ -20,4 +20,6 @@ unsigned int* FindAllDuplicatesFromList(Node **, unsigned int *);
 void SortList(Node **);
 void SwapNodesInList(Node **, unsigned int, unsigned int);
 void SwapNodesInListOpt(Node **, unsigned int, unsigned int);
+bool IsListCircular(Node **);
+void MakeListCircular(Node **, unsigned int, unsigned int);
 #endif

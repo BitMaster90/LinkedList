@@ -425,6 +425,53 @@ void SwapNodesInList(Node **Root, unsigned int FirstNodeValue, unsigned int Seco
 	return;
 }
 
+bool IsListCircular(Node **Root) {
+	Node *SlowNodePointer;
+	Node *FastNodePointer;
+	if (*Root == NULL) {
+		return false;
+	}
+	SlowNodePointer = *Root;
+	FastNodePointer = (*Root)->Next;
+	if(FastNodePointer == NULL) {
+		return false;
+	}
+	while (FastNodePointer != NULL) {
+		if (FastNodePointer == SlowNodePointer) {
+			return true;
+		}
+		SlowNodePointer = SlowNodePointer->Next;
+		FastNodePointer = FastNodePointer->Next;
+		if (FastNodePointer != NULL) {
+			FastNodePointer = FastNodePointer->Next;
+		}
+	}
+	return false;
+}
+
+void MakeListCircular(Node **Root, unsigned int first, unsigned int second) {
+	Node *FirstPointer;
+	Node *SecondPointer;
+	Node *CurrentPointer;
+	CurrentPointer = *Root;
+	FirstPointer = *Root;
+	SecondPointer = *Root;
+
+	while (CurrentPointer != NULL) {
+		if (CurrentPointer->Value == first) {
+			FirstPointer = CurrentPointer;
+		}
+		if (CurrentPointer->Value == second) {
+			SecondPointer = CurrentPointer;
+		}
+		CurrentPointer = CurrentPointer->Next;
+	}
+	if (FirstPointer == NULL || SecondPointer == NULL) {
+		return;
+	}
+	SecondPointer->Next = FirstPointer;
+	return;
+}
 
 
 

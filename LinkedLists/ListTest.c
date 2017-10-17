@@ -98,5 +98,19 @@ int main(void) {
 	SwapNodesInListOpt(&Root, 2 , 7);
 	printf("After swapping, the list is : \n");
 	PrintList(&Root);
+	if (IsListCircular(&Root) != false) {
+		printf("List is circular \n");
+	}
+	else {
+		printf("List is not circular \n");
+	}
+	printf("Make List Circular so that %d points to %d \n",7,4);
+	MakeListCircular(&Root, 4, 7);
+	if (IsListCircular(&Root) != false) {
+		printf("List is circular \n");
+	}
+	else {
+		printf("List is not circular \n");
+	}
 	return 0;
 }
