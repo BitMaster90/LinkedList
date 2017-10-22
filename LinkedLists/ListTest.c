@@ -98,6 +98,9 @@ int main(void) {
 	SwapNodesInListOpt(&Root, 2 , 7);
 	printf("After swapping, the list is : \n");
 	PrintList(&Root);
+	printf("After reversing the list is \n");
+	ReverseList(&Root);
+	PrintList(&Root);
 	if (IsListCircular(&Root) != false) {
 		printf("List is circular \n");
 	}
@@ -105,7 +108,7 @@ int main(void) {
 		printf("List is not circular \n");
 	}
 	printf("Make List Circular so that %d points to %d \n",7,4);
-	MakeListCircular(&Root, 4, 7);
+	MakeListCircular(&Root, 7, 4);
 	if (IsListCircular(&Root) != false) {
 		printf("List is circular \n");
 	}

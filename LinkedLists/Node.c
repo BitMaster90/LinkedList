@@ -473,6 +473,27 @@ void MakeListCircular(Node **Root, unsigned int first, unsigned int second) {
 	return;
 }
 
+void ReverseList(Node **Root) {
+	Node *CurrentPointer;
+	Node *PreviousPointer;
+	Node *NextPointer;
+	if (*Root == NULL) {
+		return;
+	}
+	CurrentPointer = *Root;
+	PreviousPointer = NULL;
+	NextPointer = (*Root)->Next;
+
+	while (NextPointer != NULL) {
+		CurrentPointer->Next = PreviousPointer;
+		PreviousPointer = CurrentPointer;
+		CurrentPointer = NextPointer;
+		NextPointer = NextPointer->Next;
+	}
+	CurrentPointer->Next = PreviousPointer;
+	*Root = CurrentPointer;
+	return;
+}
 
 
 
