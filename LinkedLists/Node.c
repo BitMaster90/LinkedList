@@ -44,7 +44,7 @@ bool RemoveFromList(Node **Root, unsigned int Value) {
 	if (*Root == NULL) {
 		return false;
 	}
-	else if ((*Root)->Value == Value) {
+	if ((*Root)->Value == Value) {
 		*Root = (*Root)->Next;
 		free(PreviousNodePointer);
 		return true;
